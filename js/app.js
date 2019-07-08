@@ -1,12 +1,14 @@
 // Enemies our player must avoid
-var Enemy = function(x, y) {
+var Enemy = function(x, y, speed, acceleration) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.x = x;
-    this.y = y; 
+    this.y = y;
+    this.speed = speed;
+    this.acceleration = acceleration;
     this.sprite = 'images/enemy-bug.png';
 };
 
@@ -16,6 +18,8 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    // x1 = x0 + (v * dt) + (.5 * a * dt^2)
+    this.x = this.x + (this.speed * dt);
 };
 
 // Draw the enemy on the screen, required method for game
@@ -33,6 +37,7 @@ const Player = function(x, y) {
 }
 
 Player.prototype.update = function(){
+    // x1 = x0 + (v * dt) + (.5 * a * dt^2)
 
 }
 
@@ -40,19 +45,43 @@ Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
-Player.prototype.handleInput = function(){
+Player.prototype.handleInput = function(direction){
+        if (direction === 'up') {
+            this.y -= 85;
+        } else if (direction === 'down') {
+            if (this.y <= 300) {
+                this.y += 85;
+            }
+        } else if (direction === 'left') {
+            if (this.x >= 10) {
+                this.x -= 100;
+            }
+        } else if (direction === 'right') {
+            if (this.x <= 390) {
+                this.x += 100;
+            }
+        }
 
+        if (this.y <= 0) {
+            this.y = 375;
+        }
+    console.log(`x = ${this.x}, y = ${this.y}`)
 }
 
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+const topStoneRow = 60;
+const middleStoneRow = 142;
+const bottomStoneRow = 224;
+
 let allEnemies = [
-    new Enemy(100, 60),
-    new Enemy(100, 142),
-    new Enemy(100, 224)
+    new Enemy(100, topStoneRow, 40, 100),
+    new Enemy(100, middleStoneRow, 60, 0),
+    new Enemy(100, bottomStoneRow, 80, 0)
 ];
+
 let player = new Player(200, 375);
 
 
