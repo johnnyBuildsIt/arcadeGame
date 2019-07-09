@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function(x, y, speed, acceleration) {
+var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -8,7 +8,6 @@ var Enemy = function(x, y, speed, acceleration) {
     this.x = x;
     this.y = y;
     this.speed = speed;
-    this.acceleration = acceleration;
     this.sprite = 'images/enemy-bug.png';
 };
 
@@ -20,6 +19,7 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     // x1 = x0 + (v * dt) + (.5 * a * dt^2)
     this.x = this.x + (this.speed * dt);
+    checkForCollision();
 };
 
 // Draw the enemy on the screen, required method for game
@@ -38,7 +38,6 @@ const Player = function(x, y) {
 
 Player.prototype.update = function(){
     // x1 = x0 + (v * dt) + (.5 * a * dt^2)
-
 }
 
 Player.prototype.render = function(){
@@ -76,14 +75,37 @@ const topStoneRow = 60;
 const middleStoneRow = 142;
 const bottomStoneRow = 224;
 
-let allEnemies = [
-    new Enemy(100, topStoneRow, 40, 100),
-    new Enemy(100, middleStoneRow, 60, 0),
-    new Enemy(100, bottomStoneRow, 80, 0)
+var allEnemies = [
+    new Enemy(100, topStoneRow, 40),
+    new Enemy(100, middleStoneRow, 40),
+    new Enemy(100, bottomStoneRow, 40)
 ];
 
-let player = new Player(200, 375);
+var player = new Player(200, 375);
 
+function checkForCollision() {
+    for(const enemy of allEnemies){
+        if (isPlayerInXLimits(enemy) && isPlayerInYLimits(enemy)) {
+            player.y = 375;
+        }
+    }
+}
+
+function isPlayerInYLimits(enemy) {
+    if ((player.y < (enemy.y + 40)) && (player.y > (enemy.y - 40))){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function isPlayerInXLimits(enemy){
+    if(player.x <= enemy.x + 50){
+        return true;
+    } else {
+        return false;
+    }
+}
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
