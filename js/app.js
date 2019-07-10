@@ -19,13 +19,21 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     // x1 = x0 + (v * dt) + (.5 * a * dt^2)
     this.x = this.x + (this.speed * dt);
+    // console.log(`bug x = ${this.x}, bug y = ${this.y}`)
     checkForCollision();
+    if (this.x > 500) {
+        this.regenerate();
+    }
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+Enemy.prototype.regenerate = function(){
+    this.x = 0;
+}
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -76,9 +84,9 @@ const middleStoneRow = 142;
 const bottomStoneRow = 224;
 
 var allEnemies = [
-    new Enemy(100, topStoneRow, 40),
-    new Enemy(100, middleStoneRow, 40),
-    new Enemy(100, bottomStoneRow, 40)
+    new Enemy(100, topStoneRow, 120),
+    new Enemy(200, middleStoneRow, 100),
+    new Enemy(300, bottomStoneRow, 80)
 ];
 
 var player = new Player(200, 375);
@@ -86,13 +94,15 @@ var player = new Player(200, 375);
 function checkForCollision() {
     for(const enemy of allEnemies){
         if (isPlayerInXLimits(enemy) && isPlayerInYLimits(enemy)) {
+            console.log(`BUG x = ${enemy.x}, y = ${enemy.y}, PLAYER x = ${player.x}, y = ${player.y}`)
             player.y = 375;
+            console.log('boom roasted');
         }
     }
 }
 
 function isPlayerInYLimits(enemy) {
-    if ((player.y < (enemy.y + 40)) && (player.y > (enemy.y - 40))){
+    if ((player.y < (enemy.y + 35)) && (player.y > (enemy.y - 35))){
         return true;
     } else {
         return false;
@@ -100,7 +110,7 @@ function isPlayerInYLimits(enemy) {
 }
 
 function isPlayerInXLimits(enemy){
-    if(player.x <= enemy.x + 50){
+    if(player.x > (enemy.x) && player.x <= (enemy.x + 50)){
         return true;
     } else {
         return false;
