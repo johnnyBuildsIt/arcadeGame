@@ -19,7 +19,6 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     // x1 = x0 + (v * dt) + (.5 * a * dt^2)
     this.x = this.x + (this.speed * dt);
-    // console.log(`bug x = ${this.x}, bug y = ${this.y}`)
     checkForCollision();
     if (this.x > 500) {
         this.regenerate();
@@ -72,7 +71,6 @@ Player.prototype.handleInput = function(direction){
         if (this.y <= 0) {
             this.y = 375;
         }
-    console.log(`x = ${this.x}, y = ${this.y}`)
 }
 
 
@@ -94,9 +92,7 @@ var player = new Player(200, 375);
 function checkForCollision() {
     for(const enemy of allEnemies){
         if (isPlayerInXLimits(enemy) && isPlayerInYLimits(enemy)) {
-            console.log(`BUG x = ${enemy.x}, y = ${enemy.y}, PLAYER x = ${player.x}, y = ${player.y}`)
             player.y = 375;
-            console.log('boom roasted');
         }
     }
 }
@@ -104,17 +100,17 @@ function checkForCollision() {
 function isPlayerInYLimits(enemy) {
     if ((player.y < (enemy.y + 35)) && (player.y > (enemy.y - 35))){
         return true;
-    } else {
-        return false;
     }
+
+    return false;
 }
 
 function isPlayerInXLimits(enemy){
     if(player.x > (enemy.x) && player.x <= (enemy.x + 50)){
         return true;
-    } else {
-        return false;
     }
+
+    return false;
 }
 
 // This listens for key presses and sends the keys to your
