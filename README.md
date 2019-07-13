@@ -1,20 +1,17 @@
-# Classic Arcade Game Clone Project
+# Arcade Game Project Submission
+#### For Front End Web Dev Nano Degree
+#### By Johnny Rutkowski  
+---
+# The Game
+1. Control the player with the arrow keys
+2. Try and make it across the bug lanes without being hit by or touching a bug
+3. Once the player makes it to the water, the round is won and the player appears on the bottom row
+4. Repeat
 
-## Table of Contents
+# Requirements and setup:
+This project was created using sublime text, Mozilla Firefox 66.03 devtools, and Google Chrome 73.0.3683.103 devtools
 
-- [Instructions](#instructions)
-- [Contributing](#contributing)
+# To run the code:
+- clone this repository
+- open the index.html file in your favorite browser
 
-## Instructions
-
-Use this [rubric](https://review.udacity.com/#!/rubrics/15/view) for self-checking your submission.
-
-Make sure the functions you write are **object-oriented** - either class functions (like `Player` and `Enemy`) or class prototype functions such as `Enemy.prototype.checkCollisions`. Also make sure that the keyword `this` is used appropriately within your class and class prototype functions to refer to the object the function is called upon.
-
-Your **README.md** file should be updated with instructions on both how to 1. Run and 2. Play your arcade game.
-
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
